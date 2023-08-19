@@ -1,17 +1,18 @@
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { ArrowRight } from "@carbon/icons-react";
-import { Button } from "./ui/button";
 
 function UpcomingShipBox() {
   return (
-    <div className="bg-slate-700 w-full flex flex-col gap-4 p-4">
-      <div className="w-full flex items-center justify-between">
+    <div className="bg-[#2A2A46] w-full flex flex-col gap-4 p-4">
+      <div className="w-full flex items-center justify-evenly">
         <h1 className="text-xl font-bold">Earth</h1>
         <ArrowRight size={"32"} />
         <h1 className="text-xl font-bold">Mars</h1>
       </div>
-      <hr className="w-full border-t border-slate-600"></hr>
-      <div className="flex justify-between items-center text-sm gap-8 w-full">
-        <div className="w-full flex justify-start gap-8">
+      <Separator />
+      <div className="flex justify-evenly items-center text-sm gap-8 w-full">
+        <div className="w-full flex justify-evenly gap-8">
           <p className="text-muted-foreground flex flex-col items-center">
             Distance<br></br>
             <span className="text-white">2 Light years</span>

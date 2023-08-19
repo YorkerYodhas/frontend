@@ -1,8 +1,8 @@
+import UserNav from "@/components/site-nav";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Bricolage_Grotesque, Space_Grotesk } from "next/font/google";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
-import UserNav from "./site-nav";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -18,7 +18,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <>
       <ThemeProvider attribute="class" defaultTheme="dark">
         <div
-          className={`container mx-auto max-w-xl overflow-x-hidden ${sg.className} ${bg.className}`}
+          className={`container mx-auto max-w-xl overflow-x-hidden mb-36 ${sg.className} ${bg.className}`}
         >
           <div>{children}</div>
           {pathname !== "/" && <UserNav />}

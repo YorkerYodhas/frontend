@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import {
   Calendar,
   Cloud,
@@ -25,11 +26,9 @@ function PlanetPage() {
           <p>Mars</p>
           <Favorite size={24} />
         </div>
-
         <div className="bg-[#131320] w-full flex items-center justify-center p-4">
           <img src="/images/mars.png" className="w-56"></img>
         </div>
-
         <div className="flex flex-col gap-2">
           <h1 className="text-3xl font-bold">Mars</h1>
           <p className="text-muted-foreground -mt-2">2 Light Years</p>
@@ -40,8 +39,7 @@ function PlanetPage() {
             <span>5999STR</span>
           </Button>
         </div>
-
-        <hr className="w-full border-t"></hr>
+        <Separator />
         <div className="w-full flex flex-col gap-4">
           <div className="w-full flex gap-2 overflow-x-auto">
             <Button variant={"secondary"}>
