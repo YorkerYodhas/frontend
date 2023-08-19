@@ -1,6 +1,7 @@
 import PlanetBox from "@/components/planet-box";
 import UpcomingShipBox from "@/components/upcoming-ship";
-import { Search } from "@carbon/icons-react";
+import { Rocket, Search } from "@carbon/icons-react";
+import { Calendar } from "lucide-react";
 
 function ExplorePage() {
   return (
@@ -12,7 +13,12 @@ function ExplorePage() {
         </div>
         <div className="w-full">
           <div className="flex w-full justify-between items-center">
-            <h2 className="text-2xl">Trending Destinations</h2>
+            <h2 className="text-2xl flex gap-1 items-center">
+              <span>
+                <Rocket className="mr-2" size={"24"} />
+              </span>
+              Trending Destinations
+            </h2>
             <p className="text-sm">See all</p>
           </div>
 
@@ -25,7 +31,12 @@ function ExplorePage() {
 
         <div className="w-full flex flex-col gap-8">
           <div className="flex w-full justify-between items-center">
-            <h2 className="text-2xl">Upcoming Ships</h2>
+            <h2 className="text-2xl flex gap-1 items-center">
+              <span>
+                <Calendar className="mr-2" size={"24"} />
+              </span>
+              Upcoming Ships
+            </h2>
             <p className="text-sm">See all</p>
           </div>
 
