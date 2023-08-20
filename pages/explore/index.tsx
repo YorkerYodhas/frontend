@@ -1,9 +1,22 @@
 import PlanetBox from '@/components/planet-box';
-import UpcomingShipBox from '@/components/upcoming-ship';
+import UpcomingShipBox, { Ship } from '@/components/upcoming-ship';
+import { getAllShips } from '@/services/ships/ShipService';
 import { Rocket, Search } from '@carbon/icons-react';
 import { Calendar } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 function ExplorePage() {
+  const [ships, setShips] = useState<Ship[]>([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const result = await getAllShips();
+      setShips(result.data);
+      console.log(result);
+    };
+    getData();
+  }, []);
+
   return (
     <div>
       <main className='flex min-h-screen flex-col items-start justify-start gap-12 py-8'>
@@ -41,11 +54,14 @@ function ExplorePage() {
           </div>
 
           <div className='flex flex-col gap-4'>
+            {ships.map((ship) => (
+              <UpcomingShipBox key={ship._id} ship={ship} />
+            ))}
+            {/* <UpcomingShipBox />
             <UpcomingShipBox />
             <UpcomingShipBox />
             <UpcomingShipBox />
-            <UpcomingShipBox />
-            <UpcomingShipBox />
+            <UpcomingShipBox /> */}
           </div>
         </div>
       </main>
