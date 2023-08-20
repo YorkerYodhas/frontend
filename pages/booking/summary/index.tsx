@@ -1,12 +1,23 @@
-import Appbar from "@/components/Appbar";
-import CalendarComponent from "@/components/Calendar";
-import { useState } from "react";
 import router from "next/router";
-import SeatBookingComponent from "@/components/SeatBooking";
+import { useBookingStore } from "@/stores/bookingStore";
+import { useState, useEffect } from "react";
 
 export default function Home() {
-  const [adults, setAdults] = useState<number>(0);
-  const [children, setChildren] = useState<number>(0);
+  const from = useBookingStore((state) => state.from);
+  const to = useBookingStore((state) => state.to);
+  const date = useBookingStore((state) => state.date);
+  const adults = useBookingStore((state) => state.adults);
+  const children = useBookingStore((state) => state.children);
+  const seats = useBookingStore((state) => state.seats);
+  const price = useBookingStore((state) => state.price);
+
+  const [depDate, setDepDate] = useState<string>("");
+
+  useEffect(() => {
+    console.log("seats", seats);
+    console.log(date.departureDate.toString().split(" ").slice(1, 4).join(" "));
+    setDepDate(date.departureDate.toString().split(" ").slice(1, 4).join(" "));
+  }, []);
 
   return (
     <main className="relative flex min-h-screen flex-col items-start justify-between">
@@ -41,7 +52,7 @@ export default function Home() {
                 className="w-[26px] h-[26px]"
                 src="https://res.cloudinary.com/dyj197xd4/image/upload/v1692493809/pngwing_3_a9icht.png"
               />
-              <div>Earth</div>
+              <div>{from}</div>
             </div>
           </div>
           <div>
@@ -51,19 +62,21 @@ export default function Home() {
                 className="w-[26px] h-[26px]"
                 src="https://res.cloudinary.com/dyj197xd4/image/upload/v1692494112/pngegg_1_y8273a.png"
               />
-              <div>Mars</div>
+              <div>{to}</div>
             </div>
           </div>
           <div>
             <div className="text-[12px] text-gray-400">Date</div>
             <div className="flex flex-row gap-2 text-[14px] text-white">
-              <div>14 Aug, 2163</div>
+              <div>{depDate}</div>
             </div>
           </div>
           <div>
             <div className="text-[12px] text-gray-400">Passengers</div>
             <div className="flex flex-row gap-2 text-[14px] text-white">
-              <div>2 Adults & 3 Children</div>
+              <div>
+                {adults} Adults & {children} Children
+              </div>
             </div>
           </div>
           <div>
@@ -75,7 +88,7 @@ export default function Home() {
           <div>
             <div className="text-[12px] text-gray-400">Price</div>
             <div className="flex flex-row gap-2 text-[14px] text-white">
-              <div>17500.00 STR</div>
+              <div>{price * seats.length}.00 STR</div>
             </div>
           </div>
         </div>
@@ -85,7 +98,6 @@ export default function Home() {
           Continue to Payment
         </div>
       </div>
-      <Appbar />
     </main>
   );
 }

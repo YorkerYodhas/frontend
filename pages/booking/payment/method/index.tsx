@@ -3,10 +3,34 @@ import CalendarComponent from "@/components/Calendar";
 import { useState } from "react";
 import router from "next/router";
 import SeatBookingComponent from "@/components/SeatBooking";
+import axios from "axios";
+import { useBookingStore } from "@/stores/bookingStore";
+import { on } from "events";
 
 export default function Home() {
-  const [adults, setAdults] = useState<number>(0);
-  const [children, setChildren] = useState<number>(0);
+  const from = useBookingStore((state) => state.from);
+  const to = useBookingStore((state) => state.to);
+  const date = useBookingStore((state) => state.date);
+  const adults = useBookingStore((state) => state.adults);
+  const children = useBookingStore((state) => state.children);
+  const seats = useBookingStore((state) => state.seats);
+  const price = useBookingStore((state) => state.price);
+
+  const onClick = () => {
+    const data = {
+      userId: "60f14d092ccc2a5a5b123456",
+      date: "2023-08-20T14:00:00Z",
+      duration: 2,
+      spaceShuttleNumber: "SSN12345",
+      seatNumbers: ["A1", "B7"],
+      departureTime: "2023-08-20T15:00:00Z",
+      arrivalTime: "2023-08-20T17:00:00Z",
+      paymentStatus: "PENDING",
+    };
+    axios.post("http://localhost:8080/bookings", data).then((res) => {
+      console.log(res);
+    });
+  };
 
   return (
     <main className="relative flex min-h-screen flex-col items-start justify-between">
@@ -54,12 +78,11 @@ export default function Home() {
         <div>Summary</div>
 
         <div
-          onClick={() => router.push("/booking/payment/summary")}
+          onClick={onClick}
           className="w-full h-[35px] bg-primary cursor-pointer text-center font-bold flex justify-center items-center  align-middle mt-4 mb-4 ">
           Pay Now
         </div>
       </div>
-      <Appbar />
     </main>
   );
 }

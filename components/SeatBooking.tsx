@@ -27,7 +27,13 @@ const SeatBookingComponent: React.FC<SeatBookingComponentProps> = ({
   onSelectedSeatsChange,
 }) => {
   const initialSeats = Array.from({ length: 52 }, (_, index) => {
-    return { id: index + 1, status: SeatStatus.EMPTY };
+    const seatId = index + 1;
+    if (bookedSeats.includes(seatId)) {
+      return { id: seatId, status: SeatStatus.BOOKED };
+    } else if (selectedSeats.includes(seatId)) {
+      return { id: seatId, status: SeatStatus.SELECTED };
+    }
+    return { id: seatId, status: SeatStatus.EMPTY };
   });
 
   const [seats, setSeats] = useState<Seat[]>(initialSeats);
@@ -36,11 +42,13 @@ const SeatBookingComponent: React.FC<SeatBookingComponentProps> = ({
     const updatedSeats = seats.map((seat) => {
       if (bookedSeats.includes(seat.id)) {
         return { ...seat, status: SeatStatus.BOOKED };
+      } else if (selectedSeats.includes(seat.id)) {
+        return { ...seat, status: SeatStatus.SELECTED };
       }
       return seat;
     });
     setSeats(updatedSeats);
-  }, [bookedSeats]);
+  }, [bookedSeats, selectedSeats]);
 
   const handleSeatClick = (seatId: number) => {
     const updatedSeats = seats.map((seat) => {

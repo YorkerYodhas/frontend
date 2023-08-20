@@ -14,6 +14,10 @@ export default function Home() {
   const [children, setChildren] = useState<number>(0);
   const datesStore = useBookingStore((state) => state.date);
   const setDateStore = useBookingStore((state) => state.setDate);
+  const adultsStore = useBookingStore((state) => state.adults);
+  const setAdultsStore = useBookingStore((state) => state.setAdults);
+  const childrenStore = useBookingStore((state) => state.children);
+  const setChildrenStore = useBookingStore((state) => state.setChildren);
 
   const [dates, setDates] = useState<DateProps>({
     departureDate: null,
@@ -25,11 +29,23 @@ export default function Home() {
     if (dates.departureDate && dates.arrivalDate) {
       setDateStore(dates);
     }
-  }, [dates]);
+    if (adults) {
+      setAdultsStore(adults);
+    }
+    if (children) {
+      setChildrenStore(children);
+    }
+  }, [dates, adults, children]);
 
   useEffect(() => {
     if (datesStore.departureDate && datesStore.arrivalDate) {
       setDates(datesStore);
+    }
+    if (adultsStore) {
+      setAdults(adultsStore);
+    }
+    if (childrenStore) {
+      setChildren(childrenStore);
     }
   }, []);
 
@@ -83,6 +99,18 @@ export default function Home() {
             <div className="text-center">Adults</div>
             <div className="flex flex-row gap-2">
               <svg
+                onClick={() => setAdults(adults - 1)}
+                className="cursor-pointer"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="9.5" stroke="white" />
+                <line x1="3" y1="10" x2="17" y2="10" stroke="white" />
+              </svg>
+              {adults}
+              <svg
                 onClick={() => setAdults(adults + 1)}
                 className="cursor-pointer"
                 width="20"
@@ -94,9 +122,13 @@ export default function Home() {
                 <line x1="10" y1="3" x2="10" y2="17" stroke="white" />
                 <line x1="3" y1="10" x2="17" y2="10" stroke="white" />
               </svg>
-              {adults}
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <div className="text-center">Child</div>
+            <div className="flex flex-row gap-2">
               <svg
-                onClick={() => setAdults(adults - 1)}
+                onClick={() => setChildren(children - 1)}
                 className="cursor-pointer"
                 width="20"
                 height="20"
@@ -106,11 +138,7 @@ export default function Home() {
                 <circle cx="10" cy="10" r="9.5" stroke="white" />
                 <line x1="3" y1="10" x2="17" y2="10" stroke="white" />
               </svg>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <div className="text-center">Child</div>
-            <div className="flex flex-row gap-2">
+              {children}
               <svg
                 onClick={() => setChildren(children + 1)}
                 className="cursor-pointer"
@@ -123,18 +151,6 @@ export default function Home() {
                 <line x1="10" y1="3" x2="10" y2="17" stroke="white" />
                 <line x1="3" y1="10" x2="17" y2="10" stroke="white" />
               </svg>
-              {children}
-              <svg
-                onClick={() => setChildren(children - 1)}
-                className="cursor-pointer"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <circle cx="10" cy="10" r="9.5" stroke="white" />
-                <line x1="3" y1="10" x2="17" y2="10" stroke="white" />
-              </svg>
             </div>
           </div>
         </div>
@@ -144,7 +160,6 @@ export default function Home() {
           Next
         </div>
       </div>
-      <Appbar />
     </main>
   );
 }

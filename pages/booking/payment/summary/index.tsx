@@ -66,7 +66,6 @@ export default function Home() {
           Download boarding pass
         </div>
       </div>
-      <Appbar />
     </main>
   );
 }

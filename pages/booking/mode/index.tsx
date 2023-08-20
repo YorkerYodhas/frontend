@@ -9,9 +9,18 @@ export default function Home() {
 
   const setModeStore = useBookingStore((state) => state.setMode);
   const modeStore = useBookingStore((state) => state.mode);
+  const price = useBookingStore((state) => state.price);
+  const setPrice = useBookingStore((state) => state.setPrice);
 
   const onClick = (m: string) => {
     setModeStore(m);
+    if (m == "Eco") {
+      setPrice(4999);
+    } else if (m == "Lux") {
+      setPrice(8999);
+    } else if (m == "Plt") {
+      setPrice(11999);
+    }
     router.push("/booking/seat");
   };
 
@@ -192,7 +201,6 @@ export default function Home() {
           Next
         </div>
       </div>
-      <Appbar />
     </main>
   );
 }
