@@ -5,7 +5,7 @@ type BookingState = {
     from: any;
     to: any;
     date: any;
-    audults: number;
+    adults: number;
     children: number;
     seats: number[];
     mode: string;
@@ -16,7 +16,7 @@ type BookingState = {
   setFrom: (from: any) => void;
     setTo: (to: any) => void;
     setDate: (date: any) => void;
-    setAudults: (audults: number) => void;
+    setAdults: (adults: number) => void;
     setChildren: (children: number) => void;
     setSeats: (seats: number[]) => void;
     setMode: (mode: string) => void;
@@ -28,7 +28,7 @@ export const useBookingStore = create<BookingState>((set) => ({
     from: {},
     to: {},
     date: {},
-    audults: 0,
+    adults: 0,
     children: 0,
     seats: [],
     mode: '',
@@ -39,7 +39,7 @@ export const useBookingStore = create<BookingState>((set) => ({
     setFrom: (from) => set({ from }),
     setTo: (to) => set({ to }),
     setDate: (date) => set({ date }),
-    setAudults: (audults) => set({ audults }),
+    setAdults: (adults) => set({ adults }),
     setChildren: (children) => set({ children }),
     setSeats: (seats) => set({ seats }),
     setMode: (mode) => set({ mode }),
