@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-start justify-between">
+    <main className="flex min-h-screen flex-col items-start justify-between pb-8">
       <div className="w-full relative">
         <img
           src="/images/mars.png"
@@ -15,7 +16,9 @@ export default function Home() {
           Explore the cosmos with us.
         </h1>
         <div>
-          <Button variant={"secondary"}>Get Started</Button>
+          <Link href="/explore">
+            <Button variant={"secondary"}>Get Started</Button>
+          </Link>
         </div>
       </div>
     </main>
