@@ -23,15 +23,14 @@ export interface Ship {
 }
 
 function formatDepartureDate(dateString: string) {
-  const options = {
+  return new Date(dateString).toLocaleString(undefined, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
     second: 'numeric',
-  };
-  return new Date(dateString).toLocaleString(undefined, options);
+  });
 }
 
 function UpcomingShipBox({ ship }: { ship: Ship }) {
