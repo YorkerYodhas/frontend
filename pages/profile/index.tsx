@@ -3,6 +3,7 @@ import { ArrowUpRight } from '@carbon/icons-react';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 function ProfilePage() {
   const session = useSession();
@@ -20,6 +21,11 @@ function ProfilePage() {
       router.push('/'); // Redirect to the home page after signing out
     });
   };
+
+  useEffect(() => {
+    console.log('idToken', data?.user.idToken);
+    console.log('accessToken', data?.accessToken);
+  }, []);
 
   return (
     <div>
