@@ -11,6 +11,7 @@ export default function Home() {
   const seats = useBookingStore((state) => state.seats);
   const price = useBookingStore((state) => state.price);
   const total = useBookingStore((state) => state.total);
+  const mode = useBookingStore((state) => state.mode);
   const setTotal = useBookingStore((state) => state.setTotal);
 
   const [depDate, setDepDate] = useState<string>("");
@@ -21,6 +22,10 @@ export default function Home() {
     console.log(date.departureDate.toString().split(" ").slice(1, 4).join(" "));
     setDepDate(date.departureDate.toString().split(" ").slice(1, 4).join(" "));
   }, []);
+
+  const generateSeatsList = () => {
+    return seats.map((seatNumber) => `${mode}${seatNumber}`).join(", ");
+  };
 
   return (
     <main className="relative flex min-h-screen flex-col items-start justify-between">
@@ -85,7 +90,7 @@ export default function Home() {
           <div>
             <div className="text-[12px] text-gray-400">Seats</div>
             <div className="flex flex-row gap-2 text-[14px] text-white">
-              <div>LX-032 , LX-033 , LX-034 , LX-035</div>
+              <div>{generateSeatsList()}</div>
             </div>
           </div>
           <div>

@@ -70,7 +70,7 @@ export default function Home() {
           </div>
         </div>
         <div
-          onClick={() => router.push("/booking/payment/summary")}
+          onClick={() => router.push("/booking/boardingPass")}
           className="w-full h-[35px] ring ring-primary cursor-pointer text-center font-bold text-primary flex justify-center items-center  align-middle mt-8 mb-4 ">
           View boarding pass
         </div>
