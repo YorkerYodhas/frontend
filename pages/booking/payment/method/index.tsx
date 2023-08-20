@@ -22,14 +22,21 @@ export default function Home() {
       date: "2023-08-20T14:00:00Z",
       duration: 2,
       spaceShuttleNumber: "SSN12345",
-      seatNumbers: ["A1", "B7"],
-      departureTime: "2023-08-20T15:00:00Z",
+      seatNumbers: seats,
+      departureTime: "2023-08-20T14:00:00Z",
       arrivalTime: "2023-08-20T17:00:00Z",
       paymentStatus: "PENDING",
     };
-    axios.post("http://localhost:8080/bookings", data).then((res) => {
-      console.log(res);
-    });
+    console.log(data);
+    axios
+      .post("http://localhost:8080/bookings", data)
+      .then((res) => {
+        console.log(res);
+        router.push("/booking/payment/summary");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

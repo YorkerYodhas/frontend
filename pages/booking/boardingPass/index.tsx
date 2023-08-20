@@ -1,8 +1,4 @@
-import Appbar from "@/components/Appbar";
-import CalendarComponent from "@/components/Calendar";
-import { useState } from "react";
 import router from "next/router";
-import SeatBookingComponent from "@/components/SeatBooking";
 import { useBookingStore } from "@/stores/bookingStore";
 
 export default function Home() {
@@ -39,35 +35,10 @@ export default function Home() {
         </div>
 
         <div className="flex flex-row flex-wrap w-3/5 text-[20px] font-bold text-primary mb-8">
-          Payment Summary
+          Boarding Pass
         </div>
         <div className="pl-[16px] pr-[16px] pt-[8px] bg-input w-full mb-4">
-          <div className="text-center text-[30px] font-bold mb-4">
-            {total} STR
-          </div>
-          <div className="flex flex-col">
-            <div className="text-gray-400 text-[15px] text-center mb-10">
-              Your payment was successful
-            </div>
-            <div className="flex flex-row justify-center   items-center gap-5 ml-20 text-[14px] text-gray-400 mb-8">
-              <div className=" flex flex-col w-10 ">
-                <div>From</div>
-                <div>To</div>
-                <div>Time</div>
-              </div>
-              <div className=" flex flex-col w-40  ">
-                <div>{from}</div>
-                <div>{to}</div>
-                <div>
-                  {date.departureDate
-                    .toString()
-                    .split(" ")
-                    .slice(1, 4)
-                    .join(" ")}
-                </div>
-              </div>
-            </div>
-          </div>
+          <div></div>
         </div>
         <div
           onClick={() => router.push("/booking/payment/summary")}

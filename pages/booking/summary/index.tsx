@@ -10,11 +10,14 @@ export default function Home() {
   const children = useBookingStore((state) => state.children);
   const seats = useBookingStore((state) => state.seats);
   const price = useBookingStore((state) => state.price);
+  const total = useBookingStore((state) => state.total);
+  const setTotal = useBookingStore((state) => state.setTotal);
 
   const [depDate, setDepDate] = useState<string>("");
 
   useEffect(() => {
     console.log("seats", seats);
+    setTotal(price * seats.length);
     console.log(date.departureDate.toString().split(" ").slice(1, 4).join(" "));
     setDepDate(date.departureDate.toString().split(" ").slice(1, 4).join(" "));
   }, []);
@@ -88,7 +91,7 @@ export default function Home() {
           <div>
             <div className="text-[12px] text-gray-400">Price</div>
             <div className="flex flex-row gap-2 text-[14px] text-white">
-              <div>{price * seats.length}.00 STR</div>
+              <div>{total}.00 STR</div>
             </div>
           </div>
         </div>
