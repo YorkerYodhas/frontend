@@ -1,17 +1,27 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import router from "next/router";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import Appbar from "@/components/Appbar";
+import { useBookingStore } from "@/stores/bookingStore";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [mode, setMode] = useState("");
+  const [showRing, setShowRing] = useState(false);
+
+  const setModeStore = useBookingStore((state) => state.setMode);
+  const modeStore = useBookingStore((state) => state.mode);
+
+  const onClick = (m: string) => {
+    setModeStore(m);
+    router.push("/booking/seat");
+  };
+
+  useEffect(() => {
+    console.log("modeStore", modeStore);
+    if (modeStore) {
+      setMode(modeStore);
+    }
+  }, []);
+
   return (
     <main className="relative flex min-h-screen flex-col items-start justify-between">
       <div className=" p-[24px] w-full">
@@ -43,8 +53,13 @@ export default function Home() {
         <div className="flex flex-row flex-wrap w-3/5 text-[20px] font-bold text-primary">
           Choose the mode
         </div>
-        <div className=" flex flex-col overflow-y-auto  w-full ">
-          <div className="pl-[16px] pr-[16px] pt-[8px] bg-input w-full mb-4">
+        <div className=" flex flex-col overflow-y-auto  w-full mb-8">
+          <div
+            className={
+              mode == "Eco"
+                ? "pl-[16px] pr-[16px] pt-[8px] bg-input w-full mb-4 ring ring-primary ml-1 mr-1 mt-1"
+                : "pl-[16px] pr-[16px] pt-[8px] bg-input w-full mb-4 "
+            }>
             <div className="text-center text-[30px] font-bold mb-4">
               Galactic Economy
             </div>
@@ -73,10 +88,22 @@ export default function Home() {
                   checked baggage.
                 </ul>
               </div>
+              <div className="flex flex-row justify-end items-end">
+                <div
+                  onClick={() => onClick("Eco")}
+                  className=" w-[160px] h-[40px] ring ring-primary text-center align-baseline font-bold p-3 mb-4 cursor-pointer">
+                  4999 STR
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="pl-[16px] pr-[16px] pt-[8px] bg-input w-full mb-4">
+          <div
+            className={
+              mode == "Lux"
+                ? "pl-[16px] pr-[16px] pt-[8px] bg-input w-full mb-4 ring ring-primary ml-1 mr-1 mt-1"
+                : "pl-[16px] pr-[16px] pt-[8px] bg-input w-full mb-4 "
+            }>
             <div className="text-center text-[30px] font-bold mb-4">
               Lunar Luxe
             </div>
@@ -105,12 +132,24 @@ export default function Home() {
                   checked baggage.
                 </ul>
               </div>
+              <div className="flex flex-row justify-end items-end">
+                <div
+                  onClick={() => onClick("Lux")}
+                  className=" w-[160px] h-[40px] ring ring-primary text-center align-baseline font-bold p-3 mb-4 cursor-pointer">
+                  8999 STR
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="pl-[16px] pr-[16px] pt-[8px] bg-input w-full">
+          <div
+            className={
+              mode == "Plt"
+                ? "pl-[16px] pr-[16px] pt-[8px] bg-input w-full mb-4 ring ring-primary ml-1 mr-1 mt-1"
+                : "pl-[16px] pr-[16px] pt-[8px] bg-input w-full mb-4 "
+            }>
             <div className="text-center text-[30px] font-bold mb-4">
-              Galactic Economy
+              Galactic Plt
             </div>
             <div className="flex flex-col">
               <div className="mb-8">
@@ -136,6 +175,13 @@ export default function Home() {
                   Restricted weight and size limits for personal items and
                   checked baggage.
                 </ul>
+              </div>
+              <div className="flex flex-row justify-end items-end">
+                <div
+                  onClick={() => onClick("Plt")}
+                  className=" w-[160px] h-[40px] ring ring-primary text-center align-baseline font-bold p-3 mb-4 cursor-pointer">
+                  11999 STR
+                </div>
               </div>
             </div>
           </div>
