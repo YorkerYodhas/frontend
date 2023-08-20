@@ -192,7 +192,6 @@ export default function Home() {
           Next
         </div>
       </div>
-      <Appbar />
     </main>
   );
 }

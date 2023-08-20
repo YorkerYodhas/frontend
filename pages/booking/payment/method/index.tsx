@@ -59,7 +59,6 @@ export default function Home() {
           Pay Now
         </div>
       </div>
-      <Appbar />
     </main>
   );
 }

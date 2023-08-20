@@ -85,7 +85,6 @@ export default function Home() {
           Continue to Payment
         </div>
       </div>
-      <Appbar />
     </main>
   );
 }
