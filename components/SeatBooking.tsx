@@ -13,10 +13,18 @@ interface Seat {
 
 interface SeatBookingComponentProps {
   bookedSeats: number[];
+  selectedSeats: number[];
+  onSelectedSeatsChange: (selectedSeats: number[]) => void;
+}
+
+interface SeatBookingComponentProps {
+  bookedSeats: number[];
 }
 
 const SeatBookingComponent: React.FC<SeatBookingComponentProps> = ({
   bookedSeats,
+  selectedSeats,
+  onSelectedSeatsChange,
 }) => {
   const initialSeats = Array.from({ length: 52 }, (_, index) => {
     return { id: index + 1, status: SeatStatus.EMPTY };
@@ -44,6 +52,11 @@ const SeatBookingComponent: React.FC<SeatBookingComponentProps> = ({
       return seat;
     });
     setSeats(updatedSeats);
+
+    const newSelectedSeats = updatedSeats
+      .filter((seat) => seat.status === SeatStatus.SELECTED)
+      .map((seat) => seat.id);
+    onSelectedSeatsChange(newSelectedSeats);
   };
 
   return (

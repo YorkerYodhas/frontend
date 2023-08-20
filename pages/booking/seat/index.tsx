@@ -3,10 +3,24 @@ import CalendarComponent from "@/components/Calendar";
 import { useState } from "react";
 import router from "next/router";
 import SeatBookingComponent from "@/components/SeatBooking";
+import { useEffect } from "react";
+import { useBookingStore } from "@/stores/bookingStore";
 
 export default function Home() {
-  const [adults, setAdults] = useState<number>(0);
-  const [children, setChildren] = useState<number>(0);
+  const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
+
+  const seatsStore = useBookingStore((state) => state.seats);
+  const setSeatsStore = useBookingStore((state) => state.setSeats);
+
+  useEffect(() => {
+    console.log(selectedSeats);
+    setSeatsStore(selectedSeats);
+  }, [selectedSeats]);
+
+  useEffect(() => {
+    console.log(seatsStore);
+    setSelectedSeats(seatsStore);
+  }, []);
 
   return (
     <main className="relative flex min-h-screen flex-col items-start justify-between">
@@ -41,7 +55,11 @@ export default function Home() {
         </div>
         <div className=" bg-[url('https://res.cloudinary.com/dyj197xd4/image/upload/v1692468094/spaceship2_3_vpsdlr.png')] bg-no-repeat w-cover h-[367px] bg-center  ">
           <div className="flex flex-row justify-center items-center pt-[60px]">
-            <SeatBookingComponent bookedSeats={[1, 2, 5, 7]} />
+            <SeatBookingComponent
+              bookedSeats={[5, 15, 25, 35]}
+              selectedSeats={selectedSeats}
+              onSelectedSeatsChange={setSelectedSeats}
+            />
           </div>
           <div className="flex flex-row justify-center gap-4 mb-2 mt-4">
             <div className="flex flex-row">

@@ -7,7 +7,7 @@ type BookingState = {
     date: any;
     audults: number;
     children: number;
-    seats: [];
+    seats: number[];
     mode: string;
     price: number;
   paymentDetails: any;
@@ -18,7 +18,7 @@ type BookingState = {
     setDate: (date: any) => void;
     setAudults: (audults: number) => void;
     setChildren: (children: number) => void;
-    setSeats: (seats: []) => void;
+    setSeats: (seats: number[]) => void;
     setMode: (mode: string) => void;
     setPrice: (price: number) => void;
   confirmBooking: () => void;
