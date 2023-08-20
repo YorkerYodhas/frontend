@@ -1,17 +1,38 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import router from "next/router";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import Appbar from "@/components/Appbar";
+import Dropdown from "@/components/Dropdown";
+import { useState, useEffect } from "react";
+import { useBookingStore } from "@/stores/bookingStore";
 
 export default function Home() {
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+
+  const setFromStore = useBookingStore((state) => state.setFrom);
+  const setToStore = useBookingStore((state) => state.setTo);
+  const fromStore = useBookingStore((state) => state.from);
+  const toStore = useBookingStore((state) => state.to);
+
+  const onClickNext = () => {
+    setFromStore(from);
+    setToStore(to);
+    router.push("/booking/date");
+  };
+
+  useEffect(() => {
+    //console.log("fromStore", fromStore);
+    // if (!fromStore && !toStore) {
+    //   return;
+    // }
+    console.log("fromStore", fromStore);
+    console.log("toStore", toStore);
+    if (fromStore == "Earth") {
+      console.log(typeof fromStore);
+    }
+    setFrom(fromStore);
+    setTo(toStore);
+  }, []);
+
   return (
     <main className="relative flex min-h-screen flex-col items-start justify-between">
       <div className=" p-[24px] w-full">
@@ -38,53 +59,23 @@ export default function Home() {
           />
         </div>
 
-        <div className="flex flex-row flex-wrap w-3/5 text-[20px] font-bold text-primary">
+        <div className="flex flex-row flex-wrap w-3/5 text-[20px] font-bold text-primary mb-4">
           Where you off to next cosmos trip ?
         </div>
-        <div>
-          <DropdownMenu>
-            <DropdownMenuTrigger className=" w-full text-start h-[35px] mt-[39px] bg-input flex flex-row justify-between align-middle pl-4 pr-4 pt-2">
-              <div>From</div>
-              <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M 3 4 L 8 12 L 13 4"
-                  fill="none"
-                  stroke="white"
-                  stroke-width="1"
-                />
-              </svg>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-full">
-              <DropdownMenuItem className="w-full">Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
-              <DropdownMenuItem>Subscription</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-        <div>
-          <DropdownMenu>
-            <DropdownMenuTrigger className=" w-full text-start h-[35px] mt-[39px] bg-input flex flex-row justify-between align-middle pl-4 pr-4 pt-2">
-              <div>To</div>
-              <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M 3 4 L 8 12 L 13 4"
-                  fill="none"
-                  stroke="white"
-                  stroke-width="1"
-                />
-              </svg>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-full">
-              <DropdownMenuItem className="w-full">Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
-              <DropdownMenuItem>Subscription</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+        <div>From</div>
+        <Dropdown
+          options={["Earth", "Mars", "Jupyter", "Moon"]}
+          value={setFrom}
+          set={typeof fromStore == "string" ? fromStore : ""}
+        />
+        <div>To</div>
+        <Dropdown
+          options={["Earth", "Mars", "Jupyter", "Moon"]}
+          value={setTo}
+          set={typeof toStore == "string" ? toStore : ""}
+        />
         <div
-          onClick={() => router.push("/booking/date")}
+          onClick={onClickNext}
           className="w-full h-[35px] bg-primary cursor-pointer text-center font-bold flex justify-center items-center  align-middle mt-8 ">
           Next
         </div>

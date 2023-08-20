@@ -5,11 +5,20 @@ interface DateProps {
   arrivalDate: Date | null;
 }
 
-const CalendarComponent: React.FC = () => {
-  const [dates, setDates] = useState<DateProps>({
-    departureDate: null,
-    arrivalDate: null,
-  });
+interface CalendarComponentProps {
+  dates: DateProps;
+  onDatesChange: (dates: DateProps) => void;
+}
+
+const CalendarComponent: React.FC<CalendarComponentProps> = ({
+  dates,
+  onDatesChange,
+}) => {
+  // const [dates, setDates] = useState<DateProps>({
+  //   departureDate: null,
+  //   arrivalDate: null,
+  // });
+
   const [currentDate, setCurrentDate] = useState(new Date());
   const monthNames = [
     "January",
@@ -35,11 +44,13 @@ const CalendarComponent: React.FC = () => {
   }, []);
 
   const handleDateClick = (date: Date) => {
+    let newDates: DateProps = { departureDate: null, arrivalDate: null };
     if (!dates.departureDate || (dates.departureDate && dates.arrivalDate)) {
-      setDates({ departureDate: date, arrivalDate: null });
+      newDates = { departureDate: date, arrivalDate: null };
     } else if (!dates.arrivalDate) {
-      setDates({ ...dates, arrivalDate: date });
+      newDates = { ...dates, arrivalDate: date };
     }
+    onDatesChange(newDates);
   };
 
   const daysInMonth = new Date(

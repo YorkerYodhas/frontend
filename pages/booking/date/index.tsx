@@ -1,11 +1,37 @@
 import Appbar from "@/components/Appbar";
 import CalendarComponent from "@/components/Calendar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import router from "next/router";
+import { useBookingStore } from "@/stores/bookingStore";
+
+interface DateProps {
+  departureDate: Date | null;
+  arrivalDate: Date | null;
+}
 
 export default function Home() {
   const [adults, setAdults] = useState<number>(0);
   const [children, setChildren] = useState<number>(0);
+  const datesStore = useBookingStore((state) => state.date);
+  const setDateStore = useBookingStore((state) => state.setDate);
+
+  const [dates, setDates] = useState<DateProps>({
+    departureDate: null,
+    arrivalDate: null,
+  });
+
+  useEffect(() => {
+    console.log("dates", dates);
+    if (dates.departureDate && dates.arrivalDate) {
+      setDateStore(dates);
+    }
+  }, [dates]);
+
+  useEffect(() => {
+    if (datesStore.departureDate && datesStore.arrivalDate) {
+      setDates(datesStore);
+    }
+  }, []);
 
   return (
     <main className="relative flex min-h-screen flex-col items-start justify-between">
@@ -38,7 +64,7 @@ export default function Home() {
         <div className="flex flex-row flex-wrap w-3/5 text-[20px] font-bold text-primary">
           Where are you going?
         </div>
-        <CalendarComponent />
+        <CalendarComponent dates={dates} onDatesChange={setDates} />
         <div className="flex flex-row justify-around mb-2">
           <div className="flex flex-row">
             <div className=" bg-green-500 w-5 h-5 rounded-full mr-1"></div>
