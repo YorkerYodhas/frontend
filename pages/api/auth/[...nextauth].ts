@@ -22,6 +22,7 @@ declare module 'next-auth' {
   interface Session {
     user: User;
     idToken: string;
+    accessToken: string;
   }
 }
 
@@ -61,6 +62,7 @@ export const authOptions: NextAuthOptions = {
         session.user.idToken = token.idToken;
         session.user.username = token.username;
         session.idToken = token.idToken;
+        session.accessToken = token.accessToken;
       }
 
       return session;

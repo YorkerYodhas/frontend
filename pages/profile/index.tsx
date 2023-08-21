@@ -1,10 +1,15 @@
 import { Separator } from '@/components/ui/separator';
 import { ArrowUpRight } from '@carbon/icons-react';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 function ProfilePage() {
+  const session = useSession();
   const router = useRouter();
+
+  const { data, status } = session;
 
   const handleLogout = async () => {
     signOut({ redirect: false }).then(async () => {
@@ -17,6 +22,11 @@ function ProfilePage() {
     });
   };
 
+  useEffect(() => {
+    console.log('idToken', data?.user.idToken);
+    console.log('accessToken', data?.accessToken);
+  }, []);
+
   return (
     <div>
       <main className='flex min-h-screen flex-col items-start justify-start gap-12 py-8'>
@@ -27,7 +37,7 @@ function ProfilePage() {
           <img src='/images/avatar.png' className='w-24'></img>
           <div className='flex flex-col gap-1'>
             <p className='text-muted-foreground text-lg'>Username</p>
-            <p className='text-xl font-bold'>AlexLee</p>
+            <p className='text-xl font-bold'>{data?.user.username ?? 'USERNAME'}</p>
           </div>
 
           <div className='flex flex-col gap-1'>
@@ -47,12 +57,17 @@ function ProfilePage() {
 
           <div className='flex flex-col gap-2'>
             <div className='flex justify-start gap-2 items-center'>
-              <p className='text-xl'>Edit profile</p>
+              <Link href={process.env.NEXT_PUBLIC_ASGARDEO_MYACCOUNT_URL! + '/overview'} target='_blank'>
+                <p className='text-xl'>Edit profile</p>
+              </Link>
               <ArrowUpRight size={'20'} />
             </div>
 
             <div className='flex justify-start gap-2 items-center'>
-              <p className='text-xl'>Security</p>
+              <Link href={process.env.NEXT_PUBLIC_ASGARDEO_MYACCOUNT_URL! + '/security'} target='_blank'>
+                <p className='text-xl'>Security</p>
+              </Link>
+
               <ArrowUpRight size={'20'} />
             </div>
 

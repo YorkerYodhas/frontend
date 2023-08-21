@@ -10,6 +10,7 @@ type BookingState = {
     seats: number[];
     mode: string;
     price: number;
+    total: number;
   paymentDetails: any;
   bookingConfirmation: boolean;
   setPaymentDetails: (details: any) => void;
@@ -21,6 +22,7 @@ type BookingState = {
     setSeats: (seats: number[]) => void;
     setMode: (mode: string) => void;
     setPrice: (price: number) => void;
+    setTotal: (total: number) => void; 
   confirmBooking: () => void;
 };
 
@@ -33,6 +35,7 @@ export const useBookingStore = create<BookingState>((set) => ({
     seats: [],
     mode: '',
     price: 0,
+    total: 0,
   paymentDetails: {},
   bookingConfirmation: false,
   setPaymentDetails: (details) => set({ paymentDetails: details }),
@@ -44,5 +47,6 @@ export const useBookingStore = create<BookingState>((set) => ({
     setSeats: (seats) => set({ seats }),
     setMode: (mode) => set({ mode }),
     setPrice: (price) => set({ price }),
+    setTotal: (total) => set({ total }),
   confirmBooking: () => set({ bookingConfirmation: true }),
 }));
